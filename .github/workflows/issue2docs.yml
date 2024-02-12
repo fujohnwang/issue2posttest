@@ -19,17 +19,21 @@ jobs:
                     console.log(context)
                     console.log(context.payload.issue.title)
                     console.log(context.payload.issue.body)
-                    console.log(context.payload.issue.body.created_at)
+                    console.log(context.payload.issue.created_at)
             - run: |
                   DEST="src/content/docs/reference/file-$(date "+%Y-%m-%d-%s").md"
-                  
-                  echo "---
-                  title: ${{ github.event.issue.title }}
-                  description: ${{ github.event.issue.title }}
-                  ---
-                  
-                  " > $DEST
+                  echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
+            - uses: DamianReeves/write-file-action@master
+              with:
+                  path: $DEST_MARKDOWN_FILE
+                  contents: |
+                      ---
+                      title: ${{github.event.issue.title}}
+                      createdDt: ${{github.event.issue.created_at}}
+                      description: 
+                      ---
 
-                  echo "${{ github.event.issue.body }}" > $DEST
+                      ${{github.event.issue.body}}
+                  write-mode: append
             - uses: stefanzweifel/git-auto-commit-action@v4
 
