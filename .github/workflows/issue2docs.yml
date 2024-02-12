@@ -20,7 +20,11 @@ jobs:
             - run: |
                   DEST="src/content/docs/reference/file-$(date "+%Y-%m-%d-%s").md"
                   echo $DEST
-                  echo "Issue title: ${{ github.event.issue.title }}\n" >> $DEST
-                  echo "Issue body: ${{ github.event.issue.body }}" >> $DEST
+                  echo "
+                  ---
+                  title: ${{ github.event.issue.title }}
+                  ---
+                  ${{ github.event.issue.body }}
+                  " > $DEST
             - uses: stefanzweifel/git-auto-commit-action@v4
 
