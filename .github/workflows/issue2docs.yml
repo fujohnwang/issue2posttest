@@ -1,7 +1,7 @@
 name: issue2docs
 on: 
     issues: 
-        types: [labeled, edited]
+        types: [opened, edited]
 permissions:
     contents: write
 jobs:
@@ -17,15 +17,19 @@ jobs:
               with:
                 script: |
                     console.log(context)
+                    console.log(context.payload.issue.title)
+                    console.log(context.payload.issue.body)
+                    console.log(content.payload.issue.body.created_at)
             - run: |
                   DEST="src/content/docs/reference/file-$(date "+%Y-%m-%d-%s").md"
-                  echo $DEST
+                  
                   echo "---
                   title: ${{ github.event.issue.title }}
                   description: ${{ github.event.issue.title }}
                   ---
                   
-                  ${{ github.event.issue.body }}
                   " > $DEST
+
+                  echo "${{ github.event.issue.body }}" > $DEST
             - uses: stefanzweifel/git-auto-commit-action@v4
 
