@@ -1,0 +1,26 @@
+name: issue2docs
+on: 
+    issues: 
+        types: [labeled, edited]
+permissions:
+    contents: write
+jobs:
+    transform:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: View the github context
+              run: echo "$GITHUB_CONTEXT"
+              env:
+                  GITHUB_CONTEXT: ${{ toJson(github) }}
+            - uses: actions/github-script@v7
+              with:
+                script: |
+                    console.log(context)
+            - run: |
+                  DEST="src/content/docs/reference/file-$(date "+%Y-%m-%d-%s").md"
+                  echo $DEST
+                  echo "Issue title: ${{ github.event.issue.title }}\n" >> $DEST
+                  echo "Issue body: ${{ github.event.issue.body }}" >> $DEST
+            - uses: stefanzweifel/git-auto-commit-action@v4
+
