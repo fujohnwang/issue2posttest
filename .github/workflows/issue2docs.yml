@@ -25,7 +25,7 @@ jobs:
                   echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
             - uses: DamianReeves/write-file-action@master
               with:
-                  path: $DEST_MARKDOWN_FILE
+                  path: ${{ env.DEST_MARKDOWN_FILE}}
                   contents: |
                       ---
                       title: ${{github.event.issue.title}}
