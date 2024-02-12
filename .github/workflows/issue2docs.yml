@@ -21,7 +21,7 @@ jobs:
                     console.log(context.payload.issue.body)
                     console.log(context.payload.issue.created_at)
             - run: |
-                  DEST="src/content/docs/reference/p-${{github.event.issue.number}}.md"
+                  DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
                   echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
             - uses: DamianReeves/write-file-action@master
               with:
