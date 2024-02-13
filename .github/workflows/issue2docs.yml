@@ -2,8 +2,6 @@ name: issue2docs
 on: 
     issues: 
         types: [opened, edited]
-    workflow_dispatch:
-        
 permissions:
     contents: write
 jobs:
