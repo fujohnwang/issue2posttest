@@ -38,6 +38,7 @@ jobs:
                   echo "$VARLINE" >> $GITHUB_ENV
                   echo ">>> $TEST_ENV_VAR2"
                   rm -rf ./tmp_env
+                  echo $GITHUB_ENV
             - uses: DamianReeves/write-file-action@master
               with:
                   path: ${{ env.DEST_MARKDOWN_FILE}}
