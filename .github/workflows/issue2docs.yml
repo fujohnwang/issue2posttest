@@ -20,8 +20,8 @@ jobs:
                     console.log(context.payload.issue.title)
                     console.log(context.payload.issue.body)
                     console.log(context.payload.issue.created_at)
-                    const exec = require('@actions/exec');
-                    await exec.exec('echo "TEST_ENV_VAR=XXX" >> "$GITHUB_ENV"');
+                    const cmdRunner = require('@actions/exec');
+                    await cmdRunner.exec('echo "TEST_ENV_VAR=XXX" >> "$GITHUB_ENV"');
             - run: |
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
                   echo "DEST_MARKDOWN_FILE=$DEST" >> "$GITHUB_ENV"
