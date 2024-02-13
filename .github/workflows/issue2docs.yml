@@ -35,7 +35,7 @@ jobs:
                   echo "$TEST_ENV_VAR"
                   cat ./tmp_env
                   VARLINE=$(cat ./tmp_env)
-                  cat "$VARLINE" >> $GITHUB_ENV
+                  echo "$VARLINE" >> $GITHUB_ENV
                   echo "$TEST_ENV_VAR2"
                   rm -rf ./tmp_env
             - uses: DamianReeves/write-file-action@master
