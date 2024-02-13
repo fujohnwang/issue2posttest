@@ -15,6 +15,7 @@ jobs:
                   GITHUB_CONTEXT: ${{ toJson(github) }}
             - run: |
                 npm install @actions/exec
+                npm install @actions/io
             - uses: actions/github-script@v7
               with:
                 script: |
@@ -22,8 +23,9 @@ jobs:
                     console.log(context.payload.issue.title)
                     console.log(context.payload.issue.body)
                     console.log(context.payload.issue.created_at)
+                    // don't work with output redirect
                     const cmdRunner = require('@actions/exec');
-                    await cmdRunner.exec('echo "TEST_ENV_VAR=XXX" >> "$GITHUB_ENV"');
+                    await cmdRunner.exec('echo "TEST_ENV_VAR=XXX" >> $GITHUB_ENV');
             - run: |
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
                   echo "DEST_MARKDOWN_FILE=$DEST" >> "$GITHUB_ENV"
