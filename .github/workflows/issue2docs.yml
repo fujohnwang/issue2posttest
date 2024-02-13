@@ -13,6 +13,8 @@ jobs:
               run: echo "$GITHUB_CONTEXT"
               env:
                   GITHUB_CONTEXT: ${{ toJson(github) }}
+            - run: |
+                npm install @actions/exec
             - uses: actions/github-script@v7
               with:
                 script: |
