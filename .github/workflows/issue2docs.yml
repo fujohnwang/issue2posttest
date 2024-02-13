@@ -20,9 +20,12 @@ jobs:
                     console.log(context.payload.issue.title)
                     console.log(context.payload.issue.body)
                     console.log(context.payload.issue.created_at)
+                    const exec = require('@actions/exec');
+                    await exec.exec('echo "TEST_ENV_VAR=XXX" >> "$GITHUB_ENV"');
             - run: |
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
-                  echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
+                  echo "DEST_MARKDOWN_FILE=$DEST" >> "$GITHUB_ENV"
+                  echo "$TEST_ENV_VAR"
             - uses: DamianReeves/write-file-action@master
               with:
                   path: ${{ env.DEST_MARKDOWN_FILE}}
