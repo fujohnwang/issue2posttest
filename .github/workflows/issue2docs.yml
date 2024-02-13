@@ -26,10 +26,15 @@ jobs:
                     // don't work with output redirect
                     const cmdRunner = require('@actions/exec');
                     await cmdRunner.exec('echo "TEST_ENV_VAR=XXX" >> $GITHUB_ENV');
+                    const fs = require('fs')
+                    fs.writeFileSync('tmp_env', "TEST_ENV_VAR2=XXX")
             - run: |
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
-                  echo "DEST_MARKDOWN_FILE=$DEST" >> "$GITHUB_ENV"
+                  echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
                   echo "$TEST_ENV_VAR"
+                  cat tmp_env >> $GITHUB_ENV
+                  echo "$TEST_ENV_VAR2"
+                  rm -rf tmp_env
             - uses: DamianReeves/write-file-action@master
               with:
                   path: ${{ env.DEST_MARKDOWN_FILE}}
