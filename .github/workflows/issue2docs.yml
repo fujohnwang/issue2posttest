@@ -32,11 +32,10 @@ jobs:
             - run: |
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
                   echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
-                  echo ">>> $TEST_ENV_VAR"
                   cat ./tmp_env
                   VARLINE=$(cat ./tmp_env)
                   echo "$VARLINE" >> $GITHUB_ENV
-                  echo ">>> $TEST_ENV_VAR2"
+                  echo ">>> ${{env.TEST_ENV_VAR2}}"
                   rm -rf ./tmp_env
                   echo $GITHUB_ENV
             - uses: DamianReeves/write-file-action@master
