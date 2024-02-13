@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@actions/exec": "^1.1.1",
+    "@actions/io": "^1.1.3",
     "@astrojs/starlight": "^0.18.0",
     "astro": "^4.3.4",
     "sharp": "^0.32.5"
