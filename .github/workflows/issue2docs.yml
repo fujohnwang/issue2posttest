@@ -19,22 +19,23 @@ jobs:
             - uses: actions/github-script@v7
               with:
                 script: |
-                    console.log(context)
-                    console.log(context.payload.issue.title)
-                    console.log(context.payload.issue.body)
-                    console.log(context.payload.issue.created_at)
+                    // console.log(context)
+                    // console.log(context.payload.issue.title)
+                    // console.log(context.payload.issue.body)
+                    // console.log(context.payload.issue.created_at)
                     // don't work with output redirect
                     const cmdRunner = require('@actions/exec');
                     await cmdRunner.exec('echo "TEST_ENV_VAR=XXX" >> $GITHUB_ENV');
+                    // write to temp file 
                     const fs = require('fs')
-                    fs.writeFileSync('tmp_env', "TEST_ENV_VAR2=XXX")
+                    fs.writeFileSync('./tmp_env', "TEST_ENV_VAR2=XXX")
             - run: |
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
                   echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
                   echo "$TEST_ENV_VAR"
-                  cat tmp_env >> $GITHUB_ENV
+                  cat ./tmp_env >> $GITHUB_ENV
                   echo "$TEST_ENV_VAR2"
-                  rm -rf tmp_env
+                  rm -rf ./tmp_env
             - uses: DamianReeves/write-file-action@master
               with:
                   path: ${{ env.DEST_MARKDOWN_FILE}}
