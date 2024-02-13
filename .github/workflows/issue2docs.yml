@@ -33,6 +33,7 @@ jobs:
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
                   echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
                   cat ./tmp_env >> $GITHUB_ENV
+                  rm -rf ./tmp_env
                   echo $GITHUB_ENV
                   echo "$GITHUB_ENV"
                   cat $GITHUB_ENV
