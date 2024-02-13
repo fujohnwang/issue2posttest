@@ -33,10 +33,9 @@ jobs:
                   DEST="src/content/docs/reference/p-${{github.event.issue.id}}.md"
                   echo "DEST_MARKDOWN_FILE=$DEST" >> $GITHUB_ENV
                   cat ./tmp_env >> $GITHUB_ENV
-                  echo ">>> ${{env.TEST_ENV_VAR2}}"
-                  rm -rf ./tmp_env
                   echo $GITHUB_ENV
                   echo "$GITHUB_ENV"
+                  cat $GITHUB_ENV
             - uses: DamianReeves/write-file-action@master
               with:
                   path: ${{ env.DEST_MARKDOWN_FILE}}
@@ -47,6 +46,8 @@ jobs:
                       ---
 
                       ${{github.event.issue.body}}
+
+                      ${{env.TEST_ENV_VAR2}}
                   write-mode: overwrite
             - uses: stefanzweifel/git-auto-commit-action@v5
 
