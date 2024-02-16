@@ -15,7 +15,7 @@ jobs:
               with:
                 script: |
                     const fs = require('fs')
-                    console.log($GITHUB_ENV)
-                    fs.appendFileSync("$GITHUB_ENV", "TEST_ENV_VAR2=XXX")
+                    console.log(${{github.env}})
+                    fs.appendFileSync("${{github.env}}", "TEST_ENV_VAR2=XXX")
             - run: |
-                  echo "$TEST_ENV_VAR2"
+                echo "$TEST_ENV_VAR2"
