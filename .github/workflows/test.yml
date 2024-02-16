@@ -1,0 +1,21 @@
+name: test
+on: 
+    workflow_dispatch:
+permissions:
+    contents: write
+jobs:
+    transform:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - run: |
+                npm install @actions/exec
+                npm install @actions/io
+            - uses: actions/github-script@v7
+              with:
+                script: |
+                    const fs = require('fs')
+                    console.log($GITHUB_ENV)
+                    fs.appendFileSync("$GITHUB_ENV", "TEST_ENV_VAR2=XXX")
+            - run: |
+                  echo "$TEST_ENV_VAR2"
